@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-
 export default function middleware(request: NextRequest): NextResponse {
   const refreshToken = request.cookies.get("refreshToken");
   const isAuthenticated = Boolean(refreshToken);
@@ -10,7 +9,7 @@ export default function middleware(request: NextRequest): NextResponse {
 
   const { pathname } = request.nextUrl;
 
-  if (pathname.startsWith("/login") || pathname.startsWith("/signup")) {
+  if (pathname.startsWith("/Login")) {
     if (isAuthenticated) {
       return NextResponse.redirect(new URL("/home", request.url));
     }
@@ -26,5 +25,5 @@ export default function middleware(request: NextRequest): NextResponse {
 }
 
 export const config = {
-  matcher: ["/login", "/signup", "/home/:path*"],
+  matcher: ["/Login", "/home/:path*"],
 };
