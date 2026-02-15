@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Outfit } from "next/font/google";
 
+import { Analytics } from "@vercel/analytics/next";
 import { Toaster } from "sonner";
 
 import "./globals.css";
@@ -52,6 +53,7 @@ export default function RootLayout({
       <body className={`${outfit.variable} font-outfit antialiased`}>
         {children}
         <Toaster position="top-right" richColors />
+        <Analytics />
       </body>
     </html>
   );
