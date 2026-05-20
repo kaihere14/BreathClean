@@ -12,34 +12,30 @@
 
 ## Overview
 
-### The Problem
-Urban air pollution varies significantly by location. Traditional navigation apps prioritize speed/distance but often route users through high-pollution zones like highways and industrial areas, contributing to long-term health risks.
+### Problem
+Urban air pollution varies by location. Traditional navigation apps prioritize speed/distance but may route users through high-pollution zones like highways and industrial areas, increasing health risks.
 
-### The Solution
-BreathClean prioritizes health by integrating:
+### Solution
+BreathClean computes **health scores (0-100)** for routes by integrating:
 - Real-time AQI data from [AQICN](https://aqicn.org/api/)
-- Weather conditions from [OpenWeather](https://openweathermap.org/api)
-- Traffic congestion from [Mapbox](https://docs.mapbox.com/)
-To compute **health scores (0-100)** for routes and recommend the cleanest paths.
+- Weather data from [OpenWeather](https://openweathermap.org/api)
+- Traffic data from [Mapbox](https://docs.mapbox.com/)
 
 ---
 
-## Key Features
+## Core Features
 
 - **Health-First Routing**  
-  Score routes by air quality (PM2.5, O3, etc.), weather (temp, humidity), and traffic congestion
+  Routes scored by PM2.5, O3, temperature, humidity, and traffic congestion
 
 - **Route Comparison**  
-  Display 3 route options with labels: "Cleanest Path", "Fastest", and "Balanced"
+  Three options: "Cleanest Path", "Fastest", and "Balanced"
 
 - **Multi-Modal Support**  
-  Walking, cycling, and driving with mode-specific health metrics
+  Walking, cycling, and driving with mode-specific metrics
 
 - **Saved Routes**  
-  Store and favorite routes with background-refreshed health scores
-
-- **Background Scheduler**  
-  Auto-refresh scores for all saved routes every 30 minutes
+  Store and favorite routes with auto-refreshed health scores (every 30 minutes)
 
 - **Secure Authentication**  
   Google OAuth 2.0 with JWT token management
@@ -56,7 +52,6 @@ To compute **health scores (0-100)** for routes and recommend the cleanest paths
 - TypeScript 5 (strict mode)
 - Tailwind CSS 4 + [shadcn/ui](https://ui.shadcn.com/)
 - Mapbox GL JS for interactive maps
-- [Sonner](https://sonner.emilkowal.dev/) for notifications
 - Redis caching integration
 
 ### Backend (Express 5)
@@ -66,23 +61,9 @@ To compute **health scores (0-100)** for routes and recommend the cleanest paths
 - Google OAuth via [simply-auth](https://www.npmjs.com/package/simply-auth)
 - Rate limiting (10 req/min on scoring endpoint)
 
-### Data Processing (Optional)
+### Optional Processing
 - Django 5.x microservice for batch processing
 - [Pathway](https://pathway.com/) framework for streaming pipelines
-- Python-based scoring transformers
-
----
-
-## Project Structure
-
-```
-BreathClean/
-├── client/              # Next.js frontend (port 3000)
-├── server/              # Express backend (port 8000)
-├── data-processing/     # Django/Pathway microservice (port 8001)
-├── .github/workflows/   # CI/CD configurations
-└── config/              # Linting and formatting tools
-```
 
 ---
 
@@ -141,12 +122,6 @@ BreathClean/
 | DELETE   | `/saved-routes/:id`          | Delete route             |
 | PATCH    | `/saved-routes/:id/favorite` | Toggle favorite status   |
 
-### Scheduler
-| Method | Endpoint                    | Description                  |
-|--------|-----------------------------|------------------------------|
-| POST   | `/scheduler/run`            | Manually trigger score update|
-| GET    | `/scheduler/pathway-health` | Check Pathway server status  |
-
 ---
 
 ## Database Models
@@ -196,7 +171,7 @@ BreathClean/
 
 ### Requirements
 - Node.js 20+
-- Python 3.10+ (for optional data processing)
+- Python 3.10+ (optional for data processing)
 - MongoDB (local or [Atlas](https://www.mongodb.com/atlas))
 - [Upstash Redis](https://upstash.com/) (free tier available)
 - API keys for Mapbox, AQICN, OpenWeather, and Google OAuth
